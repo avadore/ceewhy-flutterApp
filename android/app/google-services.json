@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "831444102054",
+    "firebase_url": "https://chywee-afe04.firebaseio.com",
+    "project_id": "chywee-afe04",
+    "storage_bucket": "chywee-afe04.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:831444102054:android:73288d9f2537e976633d67",
+        "android_client_info": {
+          "package_name": "com.example.withvscode"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "831444102054-bd0v81un6cp2m1okaen8nug0rseq1qu6.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.withvscode",
+            "certificate_hash": "d01c17b7283d6f898e54abbe963f19f27ffcb79a"
+          }
+        },
+        {
+          "client_id": "831444102054-fo4cask2sbcoagd1hqjafs8997liag26.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDibuKvZa5FRLXvKERlqoh-_uEj5aB2pQc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "831444102054-fo4cask2sbcoagd1hqjafs8997liag26.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
