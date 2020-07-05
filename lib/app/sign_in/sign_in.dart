@@ -3,16 +3,35 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:withvscode/app/sign_in/sign_in_Button.dart';
 import 'package:withvscode/app/sign_in/social_sign_in_Button.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+//import 'package:firebase_auth/firebase_auth.dart';
+import 'package:withvscode/services/auth.dart';
 
 
 class SignInPage extends StatelessWidget {
+//  SignInPage({@required this.onSignIn});
+//  final Function(FirebaseUser) onSignIn;
+//
+//   Future<void> _signInAnonymously() async {
+//     try{ final authResult = await FirebaseAuth.instance.signInAnonymously();
+//    onSignIn(authResult.user);
+//    } catch(e){
+//      print(e.toString());
+//    }
+//
+//  }
 
-   void _signInAnonymously() async {
-    final authResult = await FirebaseAuth.instance.signInAnonymously();
-    print('USER ID IS  ${authResult.user.uid}');
+  SignInPage({@required this.auth,  @required this.onSignIn});
+  final Function(User) onSignIn;
+  final AuthBase auth;
+
+   Future<void> _signInAnonymously() async {
+     try{ User user  = await auth.signInAnonymously();
+    onSignIn(user);
+    } catch(e){
+      print(e.toString());
+    }
+
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -96,7 +115,7 @@ class SignInPage extends StatelessWidget {
             text: "Go anonymous",
             textColor: Colors.white,
             color: Colors.pinkAccent,            
-            onPressed: _signInAnonymously,
+            onPressed:_signInAnonymously,
             height: 70.0,
           ),
 
