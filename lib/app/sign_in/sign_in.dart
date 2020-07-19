@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:withvscode/app/sign_in/email_sign_in_page.dart';
 import 'package:withvscode/app/sign_in/sign_in_Button.dart';
 import 'package:withvscode/app/sign_in/social_sign_in_Button.dart';
 //import 'package:firebase_auth/firebase_auth.dart';
@@ -8,25 +9,32 @@ import 'package:withvscode/services/auth.dart';
 
 
 class SignInPage extends StatelessWidget {
-//  SignInPage({@required this.onSignIn});
-//  final Function(FirebaseUser) onSignIn;
-//
-//   Future<void> _signInAnonymously() async {
-//     try{ final authResult = await FirebaseAuth.instance.signInAnonymously();
-//    onSignIn(authResult.user);
-//    } catch(e){
-//      print(e.toString());
-//    }
-//
-//  }
 
-  SignInPage({@required this.auth,  @required this.onSignIn});
-  final Function(User) onSignIn;
-  final AuthBase auth;
+
+  SignInPage({@required this.auth});
+   final AuthBase auth;
 
    Future<void> _signInAnonymously() async {
-     try{ User user  = await auth.signInAnonymously();
-    onSignIn(user);
+     try{await auth.signInAnonymously();
+ 
+    } catch(e){
+      print(e.toString());
+    }
+
+  }
+
+  Future<void> _signInWithGoogle() async {
+     try{await auth.signInWithGoogle();
+ 
+    } catch(e){
+      print(e.toString());
+    }
+
+  }
+
+   Future<void> _signInWithFacebook() async {
+     try{await auth.signInWithFacebook();
+
     } catch(e){
       print(e.toString());
     }
@@ -36,15 +44,24 @@ class SignInPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // appBar: AppBar(
-      //   title: Text("CEEWHY Memory Backup"),
-      //   elevation: 2.0,
-      // ),
-      body: _buildContainer(),
+       appBar: AppBar(
+         title: Text("CEEWHY Memory Backup"),
+         elevation: 2.0,
+       ),
+      body: _buildContent(context),
     );
   }
 
-  Widget _buildContainer() {
+  void _signInWithEmail(BuildContext context){
+    Navigator.of(context).push(
+      MaterialPageRoute<void>(
+        fullscreenDialog: true,
+        builder: (context)=> EmailSignInPage(),
+      ),
+    );
+  }
+
+  Widget _buildContent(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
         image: DecorationImage(
@@ -84,7 +101,7 @@ class SignInPage extends StatelessWidget {
             icon: "images/facebook-logo.png",
             textColor: Colors.white,
             color: Colors.indigo,
-            onPressed: _signInWithGoogle,
+            onPressed: _signInWithFacebook,
           ),
           SizedBox(
             height: 8.0,
@@ -94,7 +111,7 @@ class SignInPage extends StatelessWidget {
             textColor: Colors.white,
             color: Colors.black,
             icon: "images/email-logo.png",
-            onPressed: _signInWithGoogle,
+            onPressed: ()=>_signInWithEmail(context),
           ),
           SizedBox(
             height: 8.0,
@@ -124,6 +141,19 @@ class SignInPage extends StatelessWidget {
     );
   }
 
-  void _signInWithGoogle() => null; //Todo:Auth Google
 
 }
+
+
+
+//  SignInPage({@required this.onSignIn});
+//  final Function(FirebaseUser) onSignIn;
+//
+//   Future<void> _signInAnonymously() async {
+//     try{ final authResult = await FirebaseAuth.instance.signInAnonymously();
+//    onSignIn(authResult.user);
+//    } catch(e){
+//      print(e.toString());
+//    }
+//
+//  }
