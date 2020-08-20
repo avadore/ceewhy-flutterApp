@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:withvscode/app/landing_page.dart';
+import 'package:withvscode/auth_provider.dart';
 import 'package:withvscode/services/auth.dart';
 
 
@@ -10,14 +11,15 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'CEEWHY tracker',
-      theme: ThemeData(
-        primaryColor: Colors.pink,
-      ),
-  home: LandingPage(
+    return AuthProvider(
       auth: Auth(),
-  ),
+      child: MaterialApp(
+        title: 'CEEWHY tracker',
+        theme: ThemeData(
+          primaryColor: Colors.pink,
+        ),
+  home: LandingPage(),
+      ),
     );
   }
 }

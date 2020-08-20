@@ -4,14 +4,14 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:withvscode/app/sign_in/validators.dart';
+import 'package:withvscode/auth_provider.dart';
 import 'package:withvscode/common_widgets/form_submit_button.dart';
-import 'package:withvscode/services/auth.dart';
+import 'package:withvscode/common_widgets/platform_alert_dialog.dart';
 
 enum EmailSignInFormType { signIn, register }
 
 class EmailSignInForm extends StatefulWidget with EmailAndPasswordValidators {
-  EmailSignInForm({@required this.auth});
-  final AuthBase auth;
+
   @override
   _EmailSignInFormState createState() => _EmailSignInFormState();
 }
@@ -35,31 +35,20 @@ void _submit() async{
   });
   print(_email);
   try {
+    final auth = AuthProvider.of(context);
     if (_formType == EmailSignInFormType.signIn) {
-      await widget.auth.signInWithEmailAndPassword(_email, _password);
+      await auth.signInWithEmailAndPassword(_email, _password);
     } else {
-      await widget.auth.createUserWithEmailAndPassword(_email, _password);
+      await auth.createUserWithEmailAndPassword(_email, _password);
     }
     Navigator.of(context).pop();
   }
   catch(e){
-    showDialog(
-      context: context,
-      builder: (context){
-        return AlertDialog(
-          title: Text("SignIn Failed"),
-          content: Text(e.toString()),
-          actions: <Widget>[
-            FlatButton(
-              child: Text("Ok"),
-              onPressed: (){
-                Navigator.of(context).pop();
-              } ,
-            )
-          ],
-        );
-      }
-    );
+    PlatformAlertDialog(
+      title: "Sign In Fail",
+      text: e.toString(),
+      defaultActionText: "ok",
+    ).show(context);
   }
   finally{
     setState(() {
