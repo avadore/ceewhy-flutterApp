@@ -46,7 +46,7 @@ class Auth implements AuthBase {
 //    final authResult = await FirebaseAuth.instance.signInAnonymously();
     final authResult = await _firebaseAuth.signInAnonymously();
     print(authResult);
-    return _userFromFirebase(authResult.user);
+     
   }
   @override
   Future<User> signInWithEmailAndPassword(String email, String password) async{
